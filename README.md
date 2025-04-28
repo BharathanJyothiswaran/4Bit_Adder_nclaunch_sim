@@ -1,3 +1,4 @@
+
 # EXP1: 4 Bit Adder functionality verification
 
 ## Aim:
@@ -57,8 +58,11 @@ Note : File name should be with HDL Extension
 
 •	fa_4bit_test.v → Test bench 
 
-*/Program to design 4 bit adder by instantiating 1 bit Full adder.also add test bench program */
-Developed by: Register Number*/
+full_add.vmodule full_adder(A,B,CIN,S,COUT); input A,B,CIN; output S,COUT; assign S=A^B^CIN; assign COUT=(A&B) | (CIN&(A^B)); endmodule
+
+module fulladd_4bit(A,B,C0,S,C4); input [3:0] A,B; input C0; output [3:0] S; output C4; wire C1,C2,C3; full_adder fa0 (A[0],B[0],C0,S[0],C1); full_adder fa1 (A[1],B[1],C1,S[1],C2); full_adder fa2 (A[2],B[2],C2,S[2],C3); full_adder fa3 (A[3],B[3],C3,S[3],C4); endmodule
+
+module test_4bit; reg [3:0] A; reg [3:0] B; reg C0; wire [3:0] S; wire C4; fulladd_4bit dut (A,B,C0,S,C4); initial begin A=4'b0011;B=4'b0011;C0=1'b0; #10; A=4'b1011;B=4'b0111;C0=1'b1; #10; A=4'b1111;B=4'b1111;C0=1'b1; #10; end initial #50 $finish; endmodule
 
 ## Functional Simulation: 
 
@@ -72,6 +76,9 @@ Developed by: Register Number*/
       
 	After this you can see the window like below 
 
+![Screenshot 2025-04-28 104012](https://github.com/user-attachments/assets/b4cd2800-4fd7-4067-a262-7c5b098d3e59)
+
+
 ### Fig 3:Invoke the Cadence Environment
 
 	To Launch Simulation tool 
@@ -84,11 +91,17 @@ or
 
 	It will invoke the nclaunch window for functional simulation we can compile,elaborate and simulate it using Multiple Step .
 
+![Screenshot 2025-04-28 104119](https://github.com/user-attachments/assets/252fa8c0-5366-4d60-a211-b440dc755496)
+
 ### Fig 4:Setting Multi-step simulation
+
 
 	Select Multiple Step and then select “Create cds.lib File” .
 
 	Click the cds.lib file and save the file by clicking on Save option 
+
+
+![Screenshot 2025-04-26 142913](https://github.com/user-attachments/assets/46e4754b-5d69-45ac-b182-dc031bcc93f5)
 
 ### Fig 5:cds.lib file Creation
 
@@ -100,7 +113,7 @@ or
 
 •	A Click “OK” in the “nclaunch: Open Design Directory” window as shown in below figure 
 
-![image](https://github.com/user-attachments/assets/781b297a-11e9-4140-89c5-ee3b0d15bbd4)
+![Screenshot 2025-04-28 104339](https://github.com/user-attachments/assets/3e063111-ad1a-4925-8a51-d16420487de8)
 
 ### Fig 6: Selection of Don’t include any libraries
 
@@ -111,6 +124,8 @@ or
 	Worklib is the directory where all the compiled codes are stored while Snapshot will have output of elaboration which in turn goes for simulation .
 
 	To perform the function simulation, the following three steps are involved Compilation, Elaboration and Simulation. 
+
+![Screenshot 2025-04-28 104405](https://github.com/user-attachments/assets/702d2cfb-4884-4eb1-b4ab-d930e2e89ac7)
 
 ### Fig 7: Nclaunch Window
 
@@ -130,6 +145,9 @@ i.e Cadence IES command for compile: ncverilog +access+rwc -compile fa.v
 Left side select the file and in Tools : launch verilog compiler with current selection will get enable. Click it to compile the code 
 
 Worklib is the directory where all the compiled codes are stored while Snapshot will have output of elaboration which in turn goes for simulation
+
+
+![Screenshot 2025-04-28 104416](https://github.com/user-attachments/assets/70a4fdc9-8aa4-47cf-aef4-60c015ee6d46)
 
 ### Fig 8: Compiled database in worklib
 
@@ -154,6 +172,8 @@ i.e Cadence IES command for compile: ncverilog +access+rwc -compile fa.v
    
 	After elaboration the file will come under snapshot. Select the test bench and elaborate it.
 
+![Screenshot 2025-04-28 104425](https://github.com/user-attachments/assets/99d780dc-955b-4314-ad9a-4d2663bd2aaa)
+
 ### Fig 9: Elaboration Launch Option
 
 ## Step 3: Simulation: – Simulate with the given test vectors over a period of time to observe the output behaviour. 
@@ -166,14 +186,19 @@ i.e Cadence IES command for compile: ncverilog +access+rwc -compile fa.v
 
 	Steps for simulation – Run the simulation command with simulator options
 
+![WhatsApp Image 2025-04-26 at 7 52 58 PM](https://github.com/user-attachments/assets/fa875958-ad46-4745-bdfb-2760e5931043)
+
 ### Fig 10: Design Browser window for simulation
+
+![WhatsApp Image 2025-04-26 at 7 52 58 PM (1)](https://github.com/user-attachments/assets/3a50a498-de35-4e87-862b-e965ef9183f5)
 
 ### Fig 11: Launching Simulation Waveform WindowSimulation Waveform Window
 
+![WhatsApp Image 2025-04-26 at 7 52 58 PM (2)](https://github.com/user-attachments/assets/3f55d9d3-8510-44e8-855f-28ebeb058dba)
+
 ### Fig 12: Simulation Waveform Window
 
-### Result:
-
+## Result:
 The functionality of a 4-bit adder was successfully verified using a test bench and simulated with the nclaunch tool.
 
 
